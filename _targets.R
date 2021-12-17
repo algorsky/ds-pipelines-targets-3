@@ -11,8 +11,9 @@ source("1_fetch/src/get_site_data.R")
 source("3_visualize/src/map_sites.R")
 
 # Configuration
-states <- c('WI','MN','MI', 'IL')
+states <- c('WI','MN','MI', 'IL', "IN", "IA")
 parameter <- c('00060')
+
 
 # Targets
 list(
@@ -20,8 +21,9 @@ list(
   tar_target(oldest_active_sites, find_oldest_sites(states, parameter)),
 
   tar_map(
-    values = tibble(state_abb = states),
-    tar_target(nwis_data, get_site_data(oldest_active_sites, state_abb, parameter))
+    values = tibble(state_cd = states),
+    tar_target(nwis_inventory, get_state_inventory(oldest_active_sites, state_cd)),
+    tar_target(nwis_data, get_site_data(nwis_inventory, state_cd, parameter))
   ),
 
 
