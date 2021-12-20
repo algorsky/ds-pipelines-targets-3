@@ -1,6 +1,6 @@
 # packages needed: tidyverse, dataRetrieval
 get_site_data <- function(site_info, state, parameter) {
-  message(sprintf('  Retrieving data for %s-%s', state, state))
+  message(sprintf('  Retrieving data for %s-%s', state, site_info$site_no))
 
   # simulate an unreliable web service or internet connection by causing random failures
   set.seed(Sys.time()) # Make sure that the seed changes with every run (targets likes to store the seed)
